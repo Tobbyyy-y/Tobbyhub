@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tobby's Hub</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+         /* Header Styles */
+        header {
+            background-color: #ff9900;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+        }
+        header .logo h1 {
+            margin: 0;
+        }
+        header .search-bar {
+            flex-grow: 1;
+            margin: 0 20px;
+            display: flex;
+        }
+        header .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+        header .search-bar button {
+            padding: 10px;
+            border: none;
+            background-color: #333;
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        header .cart a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        /* Cart Section Styles */
+        .cart-section {
+            display: none;
+            padding: 20px;
+            background-color: #fff;
+            position: absolute;
+            top: 60px; /* Position below the header */
+            right: 20px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+        .cart-section.active {
+            display: block;
+        }
+        .cart-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .cart-section li {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .cart-section p {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        /* Product Grid Styles */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            padding: 20px;
+            background-color: #fff;
+        }
+        .product {
+            background-color: #f9f9f9;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .product img {
+            width: 100%;
+            height: 150px; /* Fixed height for uniformity */
+            object-fit: cover; /* Ensures images maintain aspect ratio */
+            border-radius: 4px;
+        }
+        .product h2 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .product p {
+            color: #ff9900;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        /* Slider Styles */
+        .slider {
+            position: relative;
+            max-width: 800px; /* Set a max width for the slider */
+            margin: 20px auto; /* Center it horizontally */
+            overflow: hidden;
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+        .slide img {
+            width: 100%;
+            height: 300px; /* Fixed height for all slider images */
+            object-fit: contain; /* Ensures entire image is visible */
+            border-radius: 4px;
+        }
+        /* Footer Styles */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Tobby's Hub</h1>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Search for products...">
+            <button onclick="searchProducts()">Search</button>
+        </div>
+        <div class="cart">
+            <a href="#" id="cart-link" onclick="toggleCart()">Cart (0)</a>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showSection('home')">Home</a></li>
+            <li><a href="#" onclick="showSection('contact')">Contact</a></li>
+        </ul>
+    </nav>
+    <marquee><strong>WELCOME TO TOBBY HUB</strong></marquee>
+    <!-- Slider Section -->
+    <div class="slider">
+        <div class="slides" id="slides">
+            <div class="slide"><img src="https://www.foodmanufacture.co.uk/var/wrbm_gb_food_pharma/storage/images/1/1/4/2/2892411-5-eng-GB/Nestle-hot-chocolate-advert-banned.jpg" alt="Slide 1"></div>
+            <div class="slide"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLNoM89ZI7jKS2Yxpu943dJNXZigLtqMyT3NdtgUknEH8FQrn-PMKFSS5dUyWQhfuhAx4&usqp=CAU" alt="Slide 2"></div>
+            <div class="slide"><img src="https://img.freepik.com/free-psd/3d-sales-discount-price-tag-composition-50-percent_314999-2100.jpg" alt="Slide 3"></div>
+            <div class="slide"><img src="https://dailypost.ng/wp-content/uploads/2024/10/MixCollage-06-Oct-2024-04-02-PM-3684.jpg" alt="Slide 4"></div>
+            <div class="slide"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMeJNKj74eIlcWlGdNgKgY35s5NTRxCfqqSw&s" alt="Slide 5"></div>
+        </div>
+    </div>
+    <!-- Home (All Products) Section -->
+    <section id="home" class="product-grid active">
+        <h2>All Products</h2>
+        <div class="product">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNKszsbBh2SL-x6xyT3yncVeAZmH2eJQohAKiQUvNyrEzxxc7IBA3Mo7ib&s=10" alt="Product 1">
+            <h2>Iphone 15</h2>
+            <p>$1199.99</p>
+            <button onclick="addToCart('Iphone 15', 1199.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnLjTSuwt6tl4jcBiFUjZGlFXoMAL-RVqkzg&usqp=CAU" alt="Product 2">
+            <h2>Goggle Pixel 9</h2>
+            <p>$899.99</p>
+            <button onclick="addToCart('Goggle Pixel 9', 899.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://saleko.ng/cache/large/product/2005/KWXTIhtVgWeHvhqrVMYbRE6VPSX7zRqtXj9Nz6Ar.jpg" alt="Product 3">
+            <h2>Hisense Smart TV</h2>
+            <p>$499.99</p>
+            <button onclick="addToCart('Hisense Smart TV', 499.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUNRkYKecCQqvWBtAQFs5OVpsj9RlC_psnt1GBeqt1JqNqdzxIBXYLNHc&s=10" alt="Product 4">
+            <h2>Buchi Mix Blender</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('Buchi Mix Blender', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://www.apple.com/v/apple-watch-series-9/d/images/meta/watch_series_9_gps_lte__eopecolsebyq_og.png" alt="Product 5">
+            <h2>Apple Watch Series 9</h2>
+            <p>$199.99</p>
+            <button onclick="addToCart('Apple Watch Series 9', 199.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/27/909289/1.jpg?9988" alt="Product 6">
+            <h2>Bluetooth Headphones</h2>
+            <p>$149.99</p>
+            <button onclick="addToCart('Bluetooth Headphones', 149.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQN1IsD5H_PjMsQraO8K1suzq34hAlun7ZuQ&s" alt="Product 7">
+            <h2>Sliding door</h2>
+            <p>$2499.99</p>
+            <button onclick="addToCart('sliding door', 2499.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="data:image/webp;base64,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" alt="Product 7">
+            <h2>Samsung Z Flip 3 5G - 6.7" Amoled - 128GB ROM - 8GB RAM - Lavender</h2>
+            <p>$1499.99</p>
+            <button onclick="addToCart('Samsung Z flip', 1499.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/26/3923101/1.jpg?3833" alt="Product 7">
+            <h2>50M Led Strip Light Flexible Single-color</h2>
+            <p>$29.99</p>
+            <button onclick="addToCart('Led strip light', 29.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
+            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
+            <p>$99.99</p>
+            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
+        </div>
+    </section>
+    <!-- Contact Us Section -->
+    <section id="contact" class="active">
+        <h2>Contact Us</h2>
+        <form onsubmit="return validateContactForm()">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" required><br>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" required><br>
+            <label for="message">Message:</label><br>
+            <textarea id="message" required></textarea><br>
+            <button type="submit">Send</button>
+        </form>
+        <p id="contact-response" style="color: green; display: none;"></p>
+    </section>
+    <div class="cart-section" id="cart">
+        <h2>Your Cart</h2>
+        <ul id="cart-items"></ul>
+        <p id="total-amount">Total: $0.00</p>
+    </div>
+    <footer>
+        <p>&copy; 2024 Tobby's Hub. All rights reserved.</p>
+    </footer>
+    <script>
+        let cart = [];
+        let totalAmount = 0;
+        function addToCart(productName, price) {
+            cart.push({ productName, price });
+            totalAmount += price;
+            updateCartDisplay();
+        }
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.productName} - $${item.price.toFixed(2)}`;
+                cartItems.appendChild(li);
+            });
+            document.getElementById('total-amount').textContent = `Total: $${totalAmount.toFixed(2)}`;
+            document.getElementById('cart-link').textContent = `Cart (${cart.length})`;
+        }
+        function toggleCart() {
+            const cartSection = document.getElementById('cart');
+            cartSection.classList.toggle('active');
+        }
+        function searchProducts() {
+            // Implement search functionality here
+            alert("Search functionality not implemented yet.");
+        }
+        function showSection(sectionId) {
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+        function validateContactForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            if (name && email && message) {
+                document.getElementById('contact-response').textContent = "Thank you for contacting us!";
+                document.getElementById('contact-response').style.display = "block";
+                return false; // Prevent form submission for demo purposes
+            }
+            return true; // Allow form submission if validation fails
+        }
+        // Slider functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        function showSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            const offset = -currentSlide * 100; // Move to the next slide
+            document.getElementById('slides').style.transform = `translateX(${offset}%)`;
+        }
+        setInterval(showSlide, 5000); // Change slide every 5 seconds
+    </script>
+</body>
+</html>
