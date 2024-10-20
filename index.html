@@ -371,33 +371,16 @@
             });
         }
 
-        function sendComplaint(event) {
+ function sendComplaint(event) {
             event.preventDefault();
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const complaint = document.getElementById('complaint').value;
-
-            const complaintData = {
-                name: name,
-                email: email,
-                complaint: complaint,
-            };
-
-            fetch('https://your-backend-api-url/send-complaint', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(complaintData),
-            })
-            .then(response => {
-                alert('Complaint submitted successfully!');
-                document.getElementById('complaintForm').reset();
-            })
-            .catch(error => {
-                alert('Error submitting complaint.');
-            });
+            const mailtoLink = `mailto:tobbygold4@gmail.com?subject=Complaint from ${name}&body=${encodeURIComponent(complaint)}%0D%0AFrom: ${email}`;
+            window.location.href = mailtoLink; // Open default email client
+            document.getElementById('complaintForm').reset(); // Reset the form after submission
         }
+
   </script>
 
   
