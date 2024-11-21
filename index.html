@@ -1,19 +1,23 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tobby's Hub</title>
     <style>
-        /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
             background-color: #f5f5f5;
             color: #333;
         }
-         /* Header Styles */
+
+        /* Header Styles */
         header {
             background-color: #ff9900;
             padding: 10px 20px;
@@ -22,20 +26,24 @@
             align-items: center;
             color: #fff;
         }
+
         header .logo h1 {
             margin: 0;
         }
+
         header .search-bar {
             flex-grow: 1;
             margin: 0 20px;
             display: flex;
         }
+
         header .search-bar input {
             width: 100%;
             padding: 10px;
             border: none;
             border-radius: 4px 0 0 4px;
         }
+
         header .search-bar button {
             padding: 10px;
             border: none;
@@ -44,41 +52,68 @@
             border-radius: 0 4px 4px 0;
             cursor: pointer;
         }
+
         header .cart a {
             color: #fff;
             text-decoration: none;
             font-weight: bold;
             cursor: pointer;
         }
-        /* Cart Section Styles */
-        .cart-section {
-            display: none;
-            padding: 20px;
-            background-color: #fff;
-            position: absolute;
-            top: 60px; /* Position below the header */
-            right: 20px;
-            width: 300px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            z-index: 1000;
+
+        /* Navigation Styles */
+        nav {
+            background-color: #333;
+            padding: 10px;
         }
-        .cart-section.active {
-            display: block;
-        }
-        .cart-section ul {
+
+        nav ul {
             list-style: none;
+            display: flex;
+            justify-content: center;
             padding: 0;
-            margin: 0;
         }
-        .cart-section li {
-            border-bottom: 1px solid #ddd;
-            padding: 10px 0;
+
+        nav li {
+            margin: 0 15px;
         }
-        .cart-section p {
-            font-weight: bold;
-            margin-top: 20px;
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
         }
+
+        nav a:hover {
+            background-color: #ff9900;
+        }
+
+  /* Slider Styles */
+  .slider {
+            position: relative;
+            max-width: 800px; /* Set a max width for the slider */
+            margin: 20px auto; /* Center it horizontally */
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 300px; /* Fixed height for all slider images */
+            object-fit: contain; /* Ensures entire image is visible */
+            border-radius: 4px;
+        }
+
         /* Product Grid Styles */
         .product-grid {
             display: grid;
@@ -87,55 +122,91 @@
             padding: 20px;
             background-color: #fff;
         }
+
         .product {
             background-color: #f9f9f9;
             padding: 15px;
             text-align: center;
             border: 1px solid #ddd;
             border-radius: 5px;
+            transition: transform 0.3s ease;
         }
+
         .product img {
             width: 100%;
-            height: 150px; /* Fixed height for uniformity */
-            object-fit: cover; /* Ensures images maintain aspect ratio */
+            height: 150px;
+            object-fit: cover;
             border-radius: 4px;
         }
+
         .product h2 {
             font-size: 18px;
             margin: 10px 0;
         }
+
         .product p {
             color: #ff9900;
             font-weight: bold;
             font-size: 16px;
         }
-        /* Slider Styles */
-        .slider {
-            position: relative;
-            max-width: 800px; /* Set a max width for the slider */
-            margin: 20px auto; /* Center it horizontally */
-            overflow: hidden;
+
+        .product:hover {
+            transform: scale(1.05);
         }
-        .slides {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-        .slide {
-            min-width: 100%;
-            box-sizing: border-box;
-        }
-        .slide img {
-            width: 100%;
-            height: 300px; /* Fixed height for all slider images */
-            object-fit: contain; /* Ensures entire image is visible */
-            border-radius: 4px;
-        }
+
         /* Footer Styles */
         footer {
             background-color: #333;
             color: #fff;
             text-align: center;
             padding: 20px 0;
+        }
+
+        /* Complaint Form Styles */
+        .complaint-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px;
+        }
+
+        .complaint-form label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        .complaint-form input,
+        .complaint-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .complaint-form button {
+            background-color: #ff9900;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            header .search-bar {
+                flex-direction: column;
+                margin: 10px 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav li {
+                margin: 10px 0;
+            }
         }
     </style>
 </head>
@@ -152,13 +223,16 @@
             <a href="#" id="cart-link" onclick="toggleCart()">Cart (0)</a>
         </div>
     </header>
+
     <nav>
         <ul>
             <li><a href="#" onclick="showSection('home')">Home</a></li>
-            <li><a href="#" onclick="showSection('contact')">Contact</a></li>
+            <li><a href="#contact" onclick="showSection('contact')">Contact Us</a></li>
         </ul>
     </nav>
+
     <marquee><strong>WELCOME TO TOBBY HUB</strong></marquee>
+
     <!-- Slider Section -->
     <div class="slider">
         <div class="slides" id="slides">
@@ -169,6 +243,9 @@
             <div class="slide"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMeJNKj74eIlcWlGdNgKgY35s5NTRxCfqqSw&s" alt="Slide 5"></div>
         </div>
     </div>
+
+
+
     <!-- Home (All Products) Section -->
     <section id="home" class="product-grid active">
         <h2>All Products</h2>
@@ -178,6 +255,7 @@
             <p>$1199.99</p>
             <button onclick="addToCart('Iphone 15', 1199.99)">Add to Cart</button>
         </div>
+        <!-- More products here... -->
         <div class="product">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnLjTSuwt6tl4jcBiFUjZGlFXoMAL-RVqkzg&usqp=CAU" alt="Product 2">
             <h2>Goggle Pixel 9</h2>
@@ -208,101 +286,103 @@
             <p>$149.99</p>
             <button onclick="addToCart('Bluetooth Headphones', 149.99)">Add to Cart</button>
         </div>
+
         <div class="product">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQN1IsD5H_PjMsQraO8K1suzq34hAlun7ZuQ&s" alt="Product 7">
             <h2>Sliding door</h2>
             <p>$2499.99</p>
             <button onclick="addToCart('sliding door', 2499.99)">Add to Cart</button>
         </div>
-        <div class="product">
-            <img src="https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/26/3923101/1.jpg?3833" alt="Product 7">
-            <h2>50M Led Strip Light Flexible Single-color</h2>
-            <p>$29.99</p>
-            <button onclick="addToCart('Led strip light', 29.99)">Add to Cart</button>
-        </div>
-        <div class="product">
-            <img src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/63/4108073/1.jpg?8614" alt="Product 7">
-            <h2>Skyrun gas cooker + Oven & Hotplate</h2>
-            <p>$99.99</p>
-            <button onclick="addToCart('skyrun gas cooker', 99.99)">Add to Cart</button>
-        </div>
+
     </section>
-    <!-- Contact Us Section -->
-    <section id="contact" class="active">
+
+    <!-- Contact Section -->
+    <section id="contact" class="complaint-form">
         <h2>Contact Us</h2>
-        <form onsubmit="return validateContactForm()">
-            <label for="name">Name:</label><br>
-            <input type="text" id="name" required><br>
-            <label for="email">Email:</label><br>
-            <input type="email" id="email" required><br>
-            <label for="message">Message:</label><br>
-            <textarea id="message" required></textarea><br>
+        <form id="complaintForm" onsubmit="sendComplaint(event)">
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+            <label for="complaint">Complaint:</label>
+            <textarea id="complaint" rows="4" required></textarea>
             <button type="submit">Send</button>
         </form>
-        <p id="contact-response" style="color: green; display: none;"></p>
     </section>
-    <div class="cart-section" id="cart">
-        <h2>Your Cart</h2>
-        <ul id="cart-items"></ul>
-        <p id="total-amount">Total: $0.00</p>
-    </div>
+
     <footer>
         <p>&copy; 2024 Tobby's Hub. All rights reserved.</p>
     </footer>
+
     <script>
-        let cart = [];
-        let totalAmount = 0;
-        function addToCart(productName, price) {
-            cart.push({ productName, price });
-            totalAmount += price;
-            updateCartDisplay();
-        }
-        function updateCartDisplay() {
-            const cartItems = document.getElementById('cart-items');
-            cartItems.innerHTML = '';
-            cart.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = `${item.productName} - $${item.price.toFixed(2)}`;
-                cartItems.appendChild(li);
-            });
-            document.getElementById('total-amount').textContent = `Total: $${totalAmount.toFixed(2)}`;
-            document.getElementById('cart-link').textContent = `Cart (${cart.length})`;
-        }
-        function toggleCart() {
-            const cartSection = document.getElementById('cart');
-            cartSection.classList.toggle('active');
-        }
-        function searchProducts() {
-            // Implement search functionality here
-            alert("Search functionality not implemented yet.");
-        }
-        function showSection(sectionId) {
-            document.querySelectorAll('section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(sectionId).classList.add('active');
-        }
-        function validateContactForm() {
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            if (name && email && message) {
-                document.getElementById('contact-response').textContent = "Thank you for contacting us!";
-                document.getElementById('contact-response').style.display = "block";
-                return false; // Prevent form submission for demo purposes
-            }
-            return true; // Allow form submission if validation fails
-        }
-        // Slider functionality
+        // Cart and search functionalities (your existing script)
+    
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
+    
         function showSlide() {
             currentSlide = (currentSlide + 1) % totalSlides;
             const offset = -currentSlide * 100; // Move to the next slide
             document.getElementById('slides').style.transform = `translateX(${offset}%)`;
         }
+    
         setInterval(showSlide, 5000); // Change slide every 5 seconds
     </script>
+
+    <script>
+        let cart = [];
+        const cartLink = document.getElementById('cart-link');
+        const cartSection = document.createElement('div');
+        cartSection.classList.add('cart-section');
+        document.body.appendChild(cartSection);
+
+        function addToCart(productName, price) {
+            cart.push({ productName, price });
+            updateCart();
+        }
+
+        function updateCart() {
+            cartLink.textContent = `Cart (${cart.length})`;
+        }
+
+        function toggleCart() {
+            cartSection.innerHTML = '<h2>Your Cart</h2>';
+            if (cart.length > 0) {
+                cart.forEach(item => {
+                    cartSection.innerHTML += `<p>${item.productName} - $${item.price}</p>`;
+                });
+            } else {
+                cartSection.innerHTML += '<p>Your cart is empty.</p>';
+            }
+            cartSection.classList.toggle('visible');
+        }
+
+        function searchProducts() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            const products = document.querySelectorAll('.product');
+            products.forEach(product => {
+                const productName = product.querySelector('h2').textContent.toLowerCase();
+                if (productName.includes(searchTerm)) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+ function sendComplaint(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const complaint = document.getElementById('complaint').value;
+            const mailtoLink = `mailto:tobbygold4@gmail.com?subject=Complaint from ${name}&body=${encodeURIComponent(complaint)}%0D%0AFrom: ${email}`;
+            window.location.href = mailtoLink; // Open default email client
+            document.getElementById('complaintForm').reset(); // Reset the form after submission
+        }
+
+  </script>
+
+  
 </body>
 </html>
