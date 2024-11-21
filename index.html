@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -52,7 +52,8 @@
             border-radius: 0 4px 4px 0;
             cursor: pointer;
         }
-
+        header .search-bar :hover {
+            background-color:#a5a3a3}
         header .cart a {
             color: #fff;
             text-decoration: none;
@@ -372,7 +373,7 @@
             });
         }
 
- function sendComplaint(event) {
+        function sendComplaint(event) {
             event.preventDefault();
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
